@@ -1,0 +1,62 @@
+app/
+# Gradle
+.gradle/
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration files
+local.properties
+*.iml
+
+# Android Studio
+.idea/
+*.ipr
+*.iws
+*.bak
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log & crash files
+*.log
+crashlytics-build.properties
+
+# Kotlin/Java-specific
+*.class
+*.jar
+*.war
+*.ear
+
+# Caches
+.cxx/
+.kotlinc/
+
+# Test results
+test-results/
+outputs/
+reports/
+
+# Misc
+*.tmp
+*.orig
+
+
+# App-specific launcher icons
+src/main/res/mipmap-*/
+
+# App-specific launcher drawables
+src/main/res/drawable*/ic_launcher_*
+
+# Unused themes and color resources (if not used by the SDK)
+src/main/res/values/colors.xml
+src/main/res/values/themes.xml
+src/main/res/values-night/themes.xml
+src/main/res/values/strings.xml
+
+# Example/baseline tests
+src/test/java/**/ExampleUnitTest.kt
+src/androidTest/java/**/ExampleInstrumentedTest.kt
+
