@@ -1,4 +1,4 @@
-package com.thoughtspot.kotlin_embed_sdk
+package com.thoughtspot.embedsdk
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

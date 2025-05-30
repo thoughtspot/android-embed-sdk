@@ -59,4 +59,6 @@ src/main/res/values/strings.xml
 # Example/baseline tests
 src/test/java/**/ExampleUnitTest.kt
 src/androidTest/java/**/ExampleInstrumentedTest.kt
-
+public-key.asc
+private-key.asc
+gradle.properties

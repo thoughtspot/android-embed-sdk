@@ -160,11 +160,6 @@ enum class AuthType(val value: String) {
     Basic("Basic"),
     ;
 
-
-    /**
-     * Long value wrapper
-     */
-//    data class LongValue(val value: Long) : Long__value()
     companion object {
         /**
          * Convert a string value back to the enum constant
@@ -3905,7 +3900,6 @@ enum class Action(val value: String) {
             fromValue(value) ?: throw IllegalArgumentException("No Action found with value: $value")
     }
 }
-
 enum class PrefetchFeatures(val value: String) {
     FullApp("FullApp"),
     SearchEmbed("SearchEmbed"),
@@ -4048,7 +4042,6 @@ enum class LogLevel(val value: String) {
             fromValue(value) ?: throw IllegalArgumentException("No LogLevel found with value: $value")
     }
 }
-
 /**
  * The configuration for the embedded Liveboard or visualization page view.
  * @group Embed components
@@ -4117,14 +4110,11 @@ data class LiveboardViewConfig(
     val overrideOrgId: Double? = null,
     val hiddenListColumns: List<ListPageColumns>? = null
 )
-
-
 data class SessionInterface(
     val acSession: SessionInterface__acSession,
     val genNo: Double,
     val sessionId: String
 )
-
 /**
  * inline customCSS within the {@link CustomisationsInterface}.
  * Use {@link CustomCssVariables} or css rules.
@@ -4132,9 +4122,8 @@ data class SessionInterface(
 
 data class customCssInterface(
     val variables: Map<String, String>? = null,
-    val rules_UNSTABLE: customCssInterface_rules_UNSTABLE? = null
+    val rules_UNSTABLE: Map<String, Map<String, String>>? = null
 )
-
 /**
  * Styles within the {@link CustomisationsInterface}.
  */
@@ -4143,7 +4132,6 @@ data class CustomStyles(
     val customCSSUrl: String? = null,
     val customCSS: customCssInterface? = null
 )
-
 /**
  * Configuration to define the customization on the Embedded
  * ThoughtSpot components.
@@ -4181,7 +4169,6 @@ data class CustomisationsInterface(
     val content: CustomisationsInterface__content? = null,
     val iconSpriteUrl: String? = null
 )
-
 /**
  * The configuration object for embedding ThoughtSpot content.
  * It includes the ThoughtSpot hostname or IP address,
@@ -4227,16 +4214,13 @@ data class EmbedConfig(
     val disableTokenVerification: Boolean? = null,
     val disableLoginFailurePage: Boolean? = null,
     val additionalFlags: EmbedConfig__additionalFlags? = null,
-    val customVariablesForThirdPartyTools: EmbedConfig__customVariablesForThirdPartyTools? = null,
+    val customVariablesForThirdPartyTools: Map<String, Any>? = null,
     val disablePreauthCache: Boolean? = null
 )
-
-
 /**
  * Type definition for LayoutConfig
  */
 typealias LayoutConfig = Map<String, Any>
-
 /**
  * Embedded iframe configuration
  * @group Embed components
@@ -4247,7 +4231,6 @@ data class FrameParams(
     val height: FrameParams__height? = null,
     val loading: FrameParams__loading? = null
 )
-
 /**
  * The configuration object for an embedded view.
  */
@@ -4291,7 +4274,6 @@ data class ViewConfig(
     val overrideOrgId: Double? = null,
     val hiddenListColumns: List<ListPageColumns>? = null
 )
-
 /**
  * A filter that can be applied to ThoughtSpot answers, Liveboards, or
  * visualizations at runtime.
@@ -4302,7 +4284,6 @@ data class RuntimeFilter(
     val operator: RuntimeFilterOp,
     val columnName: String
 )
-
 /**
  * A filter that can be applied to ThoughtSpot Answers, Liveboards, or
  * visualizations at runtime.
@@ -4312,24 +4293,17 @@ data class RuntimeParameter(
     val value: RuntimeParameter__value,
     val name: String
 )
-
-
 data class AnswerServiceType(
     val getAnswer: AnswerServiceType__getAnswer? = null
 )
-
-
 data class ColumnValue(
     val value: ColumnValue__value,
     val column: ColumnValue__column
 )
-
-
 data class VizPoint(
     val selectedMeasures: List<ColumnValue>,
     val selectedAttributes: List<ColumnValue>
 )
-
 /**
  * @group Events
  */
@@ -4340,13 +4314,11 @@ data class CustomActionPayload(
     val contextMenuPoints: CustomActionPayload__contextMenuPoints? = null,
     val vizId: String? = null
 )
-
-
 data class DefaultAppInitData(
     val hiddenListColumns: List<ListPageColumns>,
-    val customVariablesForThirdPartyTools: DefaultAppInitData__customVariablesForThirdPartyTools,
+    val customVariablesForThirdPartyTools: Map<String, Any>,
     val hiddenHomeLeftNavItems: List<String>,
-    val hostConfig: DefaultAppInitData__hostConfig,
+    val hostConfig: Map<String, Any>,
     val reorderedHomepageModules: List<String>,
     val hiddenHomepageModules: List<HomepageModule>,
     val runtimeParameterParams: String,
@@ -4354,98 +4326,54 @@ data class DefaultAppInitData(
     val authToken: String,
     val customisations: CustomisationsInterface
 )
-
-
 /**
  * Type definition for LiveboardViewConfig__additionalFlags
  */
 typealias LiveboardViewConfig__additionalFlags = Map<String, Any>
-
-
 data class SessionInterface__acSession(
     val genNo: Double,
     val sessionId: String
 )
-
-
 /**
  * Type definition for customCssInterface_rules_UNSTABLE
  */
 typealias customCssInterface_rules_UNSTABLE = Map<String, Any>
-
-
-/**
- * Type definition for CustomisationsInterface__content__strings
- */
-typealias CustomisationsInterface__content__strings = Map<String, Any>
-
-
-/**
- * Type definition for CustomisationsInterface__content__stringIDs
- */
-typealias CustomisationsInterface__content__stringIDs = Map<String, Any>
-
-
 data class CustomisationsInterface__content(
-    val strings: CustomisationsInterface__content__strings? = null,
-    val stringIDs: CustomisationsInterface__content__stringIDs? = null,
+    val strings: Map<String, Any>? = null,
+    val stringIDs: Map<String, String>? = null,
     val stringIDsUrl: String? = null
 )
-
-
 data class EmbedConfig__hostConfig(
     val hostClusterName: String,
     val hostClusterId: String,
     val hostUserGuid: String
 )
-
-
 /**
  * Type definition for EmbedConfig__additionalFlags
  */
 typealias EmbedConfig__additionalFlags = Map<String, Any>
-
-
-/**
- * Type definition for EmbedConfig__customVariablesForThirdPartyTools
- */
-typealias EmbedConfig__customVariablesForThirdPartyTools = Map<String, Any>
-
-
 /**
  * Type definition for ViewConfig__additionalFlags
  */
 typealias ViewConfig__additionalFlags = Map<String, Any>
-
-
 data class ColumnValue__value__Type__4__v(
     val e: Double,
     val s: Double
 )
-
-
 data class ColumnValue__value__Type__4(
     val v: ColumnValue__value__Type__4__v
 )
-
-
 data class ColumnValue__column(
     val dataType: String,
     val name: String,
     val id: String
 )
-
-
 data class CustomActionPayload__embedAnswerData__sources__header(
     val guid: String
 )
-
-
 data class CustomActionPayload__embedAnswerData__sources(
     val header: CustomActionPayload__embedAnswerData__sources__header
 )
-
-
 data class CustomActionPayload__embedAnswerData(
     val data: List<Any>,
     val columns: List<Any>,
@@ -4453,27 +4381,10 @@ data class CustomActionPayload__embedAnswerData(
     val id: String,
     val name: String
 )
-
-
 data class CustomActionPayload__contextMenuPoints(
     val selectedPoints: List<VizPoint>,
     val clickedPoint: VizPoint
 )
-
-
-/**
- * Type definition for DefaultAppInitData__customVariablesForThirdPartyTools
- */
-typealias DefaultAppInitData__customVariablesForThirdPartyTools = Map<String, Any>
-
-
-/**
- * Type definition for DefaultAppInitData__hostConfig
- */
-typealias DefaultAppInitData__hostConfig = Map<String, Any>
-
-
-
 interface AnswerServiceType__getAnswer {
     fun operate(
         batchSize: Double,
@@ -4488,18 +4399,11 @@ sealed class EmbedConfig__authTriggerContainer {
      * String value wrapper
      */
     data class StringValue(val value: String) : EmbedConfig__authTriggerContainer()
-
-    /**
-     * Number value wrapper
-     */
-    data class NumberValue(val value: Double) : EmbedConfig__authTriggerContainer()
-
-
-
     /**
      * Any value wrapper
      */
     data class AnyValue(val value: Any) : EmbedConfig__authTriggerContainer()
+
     companion object {
         /**
          * Convert a value to the appropriate union type
@@ -4507,18 +4411,12 @@ sealed class EmbedConfig__authTriggerContainer {
         fun fromValue(value: Any): EmbedConfig__authTriggerContainer {
             return when(value) {
                 is String -> StringValue(value)
-                is Double -> NumberValue(value)
-                is Int -> NumberValue(value.toDouble())
-                is Float -> NumberValue(value.toDouble())
-                is Long -> NumberValue(value.toDouble())
-
                 is Any -> AnyValue(value)
                 else -> throw IllegalArgumentException("Cannot convert \$value to EmbedConfig__authTriggerContainer")
             }
         }
     }
 }
-
 /**
  * Union type for FrameParams__width
  */
@@ -4527,12 +4425,10 @@ sealed class FrameParams__width {
      * String value wrapper
      */
     data class StringValue(val value: String) : FrameParams__width()
-
     /**
      * Number value wrapper
      */
     data class NumberValue(val value: Double) : FrameParams__width()
-
 
     companion object {
         /**
@@ -4545,14 +4441,11 @@ sealed class FrameParams__width {
                 is Int -> NumberValue(value.toDouble())
                 is Float -> NumberValue(value.toDouble())
                 is Long -> NumberValue(value.toDouble())
-
-
                 else -> throw IllegalArgumentException("Cannot convert \$value to FrameParams__width")
             }
         }
     }
 }
-
 /**
  * Union type for FrameParams__height
  */
@@ -4561,12 +4454,10 @@ sealed class FrameParams__height {
      * String value wrapper
      */
     data class StringValue(val value: String) : FrameParams__height()
-
     /**
      * Number value wrapper
      */
     data class NumberValue(val value: Double) : FrameParams__height()
-
 
     companion object {
         /**
@@ -4579,14 +4470,11 @@ sealed class FrameParams__height {
                 is Int -> NumberValue(value.toDouble())
                 is Float -> NumberValue(value.toDouble())
                 is Long -> NumberValue(value.toDouble())
-
-
                 else -> throw IllegalArgumentException("Cannot convert \$value to FrameParams__height")
             }
         }
     }
 }
-
 /**
  * Union type for FrameParams__loading
  */
@@ -4596,12 +4484,6 @@ sealed class FrameParams__loading {
      */
     data class StringValue(val value: String) : FrameParams__loading()
 
-    /**
-     * Number value wrapper
-     */
-    data class NumberValue(val value: Double) : FrameParams__loading()
-
-
     companion object {
         /**
          * Convert a value to the appropriate union type
@@ -4609,17 +4491,11 @@ sealed class FrameParams__loading {
         fun fromValue(value: Any): FrameParams__loading {
             return when(value) {
                 is String -> StringValue(value)
-                is Double -> NumberValue(value)
-                is Int -> NumberValue(value.toDouble())
-                is Float -> NumberValue(value.toDouble())
-                is Long -> NumberValue(value.toDouble())
-
                 else -> throw IllegalArgumentException("Cannot convert \$value to FrameParams__loading")
             }
         }
     }
 }
-
 /**
  * Union type for RuntimeFilter__values
  */
@@ -4628,18 +4504,19 @@ sealed class RuntimeFilter__values {
      * String value wrapper
      */
     data class StringValue(val value: String) : RuntimeFilter__values()
-
     /**
      * Number value wrapper
      */
     data class NumberValue(val value: Double) : RuntimeFilter__values()
-
-
-
+    /**
+     * Long value wrapper
+     */
+    data class LongValue(val value: Long) : RuntimeFilter__values()
     /**
      * Boolean value wrapper
      */
-    data class BoolValue(val value: Boolean) : RuntimeFilter__values()
+    data class BooleanValue(val value: Boolean) : RuntimeFilter__values()
+
     companion object {
         /**
          * Convert a value to the appropriate union type
@@ -4651,16 +4528,13 @@ sealed class RuntimeFilter__values {
                 is Int -> NumberValue(value.toDouble())
                 is Float -> NumberValue(value.toDouble())
                 is Long -> NumberValue(value.toDouble())
-
-
-                is Long -> NumberValue(value.toDouble())
-
+                is Long -> LongValue(value)
+                is Boolean -> BooleanValue(value)
                 else -> throw IllegalArgumentException("Cannot convert \$value to RuntimeFilter__values")
             }
         }
     }
 }
-
 /**
  * Union type for RuntimeParameter__value
  */
@@ -4669,18 +4543,15 @@ sealed class RuntimeParameter__value {
      * String value wrapper
      */
     data class StringValue(val value: String) : RuntimeParameter__value()
-
     /**
      * Number value wrapper
      */
     data class NumberValue(val value: Double) : RuntimeParameter__value()
-
-
-
     /**
      * Boolean value wrapper
      */
-    data class BoolValue(val value: Boolean) : RuntimeParameter__value()
+    data class BooleanValue(val value: Boolean) : RuntimeParameter__value()
+
     companion object {
         /**
          * Convert a value to the appropriate union type
@@ -4692,15 +4563,12 @@ sealed class RuntimeParameter__value {
                 is Int -> NumberValue(value.toDouble())
                 is Float -> NumberValue(value.toDouble())
                 is Long -> NumberValue(value.toDouble())
-
-
-
+                is Boolean -> BooleanValue(value)
                 else -> throw IllegalArgumentException("Cannot convert \$value to RuntimeParameter__value")
             }
         }
     }
 }
-
 /**
  * Union type for ColumnValue__value
  */
@@ -4709,23 +4577,19 @@ sealed class ColumnValue__value {
      * String value wrapper
      */
     data class StringValue(val value: String) : ColumnValue__value()
-
     /**
      * Number value wrapper
      */
     data class NumberValue(val value: Double) : ColumnValue__value()
-
-
-
     /**
      * Boolean value wrapper
      */
-    data class BoolValue(val value: Boolean) : ColumnValue__value()
-
+    data class BooleanValue(val value: Boolean) : ColumnValue__value()
     /**
      * ColumnValue__value__Type__4 value wrapper
      */
     data class ColumnValue__value__Type__4Value(val value: ColumnValue__value__Type__4) : ColumnValue__value()
+
     companion object {
         /**
          * Convert a value to the appropriate union type
@@ -4737,15 +4601,10 @@ sealed class ColumnValue__value {
                 is Int -> NumberValue(value.toDouble())
                 is Float -> NumberValue(value.toDouble())
                 is Long -> NumberValue(value.toDouble())
-
-
-
+                is Boolean -> BooleanValue(value)
                 is ColumnValue__value__Type__4 -> ColumnValue__value__Type__4Value(value)
                 else -> throw IllegalArgumentException("Cannot convert \$value to ColumnValue__value")
             }
         }
     }
 }
-
-
-// End of generated Kotlin code
