@@ -1,4 +1,4 @@
-package com.thoughtspot.kotlin_embed_sdk
+package com.thoughtspot.android.embedsdk
 
 import org.junit.Test
 

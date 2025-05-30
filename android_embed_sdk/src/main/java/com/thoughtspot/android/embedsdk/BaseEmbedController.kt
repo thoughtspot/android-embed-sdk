@@ -1,4 +1,4 @@
-package com.thoughtspot.android_embed_sdk
+package com.thoughtspot.android.embedsdk
 
 import EmbedConfig
 import HostEvent
