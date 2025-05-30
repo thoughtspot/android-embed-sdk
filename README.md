@@ -1,149 +1,146 @@
-# ThoughtSpot Android Embed SDK Usage Guide
+# 🧹 ThoughtSpot Android Embed SDK
 
-## Overview
-
-The `android-embed-sdk` allows developers to embed ThoughtSpot liveboards seamlessly into Android applications with support for custom styles, authentication, and event handling.
+Embed ThoughtSpot content directly into your native Android applications with ease using the **ThoughtSpot Android Embed SDK**.
 
 ---
 
-## 📦 Dependency Setup
+## 📦 Installation
 
-You can use the SDK in two ways:
+### Gradle (after publication to Maven Central)
 
-### 1. JitPack (for snapshots or GitHub releases)
-
-In your **root `build.gradle`**:
-
-```gradle
-	dependencyResolutionManagement {
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-		repositories {
-			mavenCentral()
-			maven { url 'https://jitpack.io' }
-		}
-	}
-```
-
-In your **module `build.gradle`**:
-
-```gradle
-	dependencies {
-	        implementation 'com.github.thoughtspot:android-embed-sdk:Tag'
-	}
-```
-
-### 2. Maven Central (for stable releases)
-
-In your **module `build.gradle`**:
-
-```gradle
-    dependencies {
-        implementation("io.github.thoughtspot:android-embed-sdk:<version>")
-    }
-```
-
----
-
-## 🔧 Basic Integration Example
+Add this to your app-level `build.gradle.kts`:
 
 ```kotlin
-package com.your-id.prj-name
+implementation("io.github.thoughtspot:android-embed-sdk:0.0.1-beta")
+```
 
-import android.app.Activity
-import android.content.res.Configuration
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.thoughtspot.android_embed_sdk.LiveboardEmbed
-import com.thoughtspot.android_embed_sdk.AuthType
-import com.thoughtspot.android_embed_sdk.EmbedEvent
-import com.thoughtspot.android_embed_sdk.HostEvent
-import customCssInterface
-import kotlinx.coroutines.*
-import CustomStyles
-import CustomisationsInterface
-import EmbedConfig
-import LiveboardViewConfig
+---
 
-class MainActivity : AppCompatActivity() {
-    // You can instead fetch token from your backend.
-    private suspend fun fetchAuthTokenAsync(): String {
-        return "<YOUR_TRUSTED_AUTH_TOKEN>"
-    }
+## 🚀 Usage
 
-    private val getAuthToken: () -> String = {
-        runBlocking {
-            fetchAuthTokenAsync()
-        }
-    }
+### 1. XML Layout
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+```xml
+<com.thoughtspot.android.embedsdk.LiveboardEmbed
+    android:id="@+id/liveboard_embed_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/another_view"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+```
 
-        val embedView = findViewById<LiveboardEmbed>(R.id.liveboard_embed_view)
+### 2. Kotlin Integration
 
-        val viewConfig = LiveboardViewConfig(
-            liveboardId = "your-livebaord-id",
-            enable2ColumnLayout = true,
-            customizations = CustomisationsInterface(
-                style = CustomStyles(
-                    customCSS = customCssInterface(
-                        variables = mapOf(
-                            "--ts-var-primary-color" to "#0055ff",
-                            "--ts-var-max-width" to "1200px",
-                            "--ts-var-enable-2-column-layout" to "true",
-                            "--ts-var-root-background" to "#fef4dd",
-                            "--ts-var-root-color" to "#4a4a4a",
-                            "--ts-var-viz-title-color" to "#8e6b23",
-                            "--ts-var-viz-title-font-family" to "'Georgia', 'Times New Roman', serif",
-                            "--ts-var-viz-title-text-transform" to "capitalize",
-                            "--ts-var-viz-description-color" to "#6b705c",
-                            "--ts-var-viz-description-font-family" to "'Verdana', 'Helvetica', sans-serif",
-                            "--ts-var-viz-border-radius" to "6px",
-                            "--ts-var-viz-box-shadow" to "0 3px 6px rgba(0, 0, 0, 0.15)",
-                            "--ts-var-viz-background" to "#fffbf0",
-                            "--ts-var-viz-legend-hover-background" to "#ffe4b5",
-                            "--ts-var-liveboard-dual-column-breakpoint" to "1100px",
-                            "--ts-var-liveboard-single-column-breakpoint" to "320px"
-                        )
-                    )
+```kotlin
+val embedView = findViewById<LiveboardEmbed>(R.id.liveboard_embed_view)
+
+val viewConfig = LiveboardViewConfig(
+    liveboardId = "your-liveboard-id",
+    enable2ColumnLayout = true,
+    customizations = CustomisationsInterface(
+        style = CustomStyles(
+            customCSS = customCssInterface(
+                variables = mapOf(
+                    "--ts-var-primary-color" to "#0055ff",
+                    "--ts-var-liveboard-dual-column-breakpoint" to "1100px"
+                    // Add more variables as needed
                 )
             )
         )
+    )
+)
 
-        val embedConfig = EmbedConfig(
-            thoughtSpotHost = "ts-host",
-            authType = AuthType.TrustedAuthTokenCookieless
-        )
+val embedConfig = EmbedConfig(
+    thoughtSpotHost = "https://your.thoughtspot.instance",
+    authType = AuthType.TrustedAuthTokenCookieless
+)
 
-        embedView.initialize(
-            viewConfig = viewConfig,
-            embedConfig = embedConfig,
-            getAuthToken = getAuthToken
-        )
-
-        // Example: Listen to Reload event
-        embedView.getController()?.on(HostEvent.Reload) { payload ->
-            println("♻️ Liveboard reloaded with payload: $payload")
-        }
+val getAuthToken: () -> String = {
+    runBlocking {
+        // Replace with real token retrieval logic
+        "your-auth-token"
     }
 }
+
+embedView.initialize(
+    viewConfig = viewConfig,
+    embedConfig = embedConfig,
+    getAuthToken = getAuthToken
+)
 ```
 
 ---
 
-## 📌 Notes
+## 🧠 Event Handling
 
-* `LiveboardEmbed` view should be defined in your XML layout (`activity_main.xml`).
-* Your backend should generate and return a **Trusted Auth Token**.
-* Snapshot builds may change frequently; prefer stable versions for production.
+### Listen to SDK Events
+
+```kotlin
+embedView.getController()?.on(EmbedEvent.AuthInit) { payload ->
+    println("✅ Auth initialized: $payload")
+}
+```
+
+### Trigger Host Events
+
+```kotlin
+embedView.getController()?.trigger(HostEvent.Reload)
+```
 
 ---
 
-## 🆘 Support
+## 🔧 Customization
 
-Please open an issue or discussion on the [GitHub repository](https://github.com/thoughtspot/android-embed-sdk) for support or feature requests.
+Easily style your embed via CSS variables passed in `customCSS`:
+
+```kotlin
+customCssInterface(
+    variables = mapOf(
+        "--ts-var-primary-color" to "#0055ff",
+        "--ts-var-root-background" to "#ffffff"
+        // Add any ThoughtSpot CSS variables
+    )
+)
+```
 
 ---
 
-© ThoughtSpot, Inc.
+## 💪 Testing
+
+Includes support for:
+
+* Unit tests (`JUnit`, `Mockito`)
+* Android instrumented tests (`Espresso`, `AndroidX Test`)
+
+---
+
+## 📜 License
+
+[ThoughtSpot Development Tools EULA](https://github.com/thoughtspot/android-embed-sdk/blob/main/LICENSE.md)
+
+---
+
+## 💠 Development & Publishing
+
+Uses:
+
+* Kotlin DSL for Gradle
+* Maven publishing with signed artifacts
+* Sources JAR included
+
+See `build.gradle.kts` for full configuration.
+
+---
+
+## 👤 Maintainers
+
+* ThoughtSpot, Inc. – [support@thoughtspot.com](mailto:support@thoughtspot.com)
+
+---
+
+## 🔗 Resources
+
+* [ThoughtSpot Developers](https://developers.thoughtspot.com)
+* [Liveboard Embedding Docs](https://developers.thoughtspot.com/docs/embed/liveboard)
