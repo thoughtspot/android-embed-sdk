@@ -56,7 +56,7 @@ class LiveboardEmbedController(
     /**
      * Fire a HostEvent into the shell (search, drillDown, etc.)
      */
-    override fun trigger(event: HostEvent, data: Map<String, Any>? ) {
+    override fun trigger(event: HostEvent, data: Any? ) {
         super.trigger(event, data)
     }
 }

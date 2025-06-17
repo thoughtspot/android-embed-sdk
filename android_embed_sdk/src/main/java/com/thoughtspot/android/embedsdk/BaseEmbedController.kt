@@ -12,6 +12,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.google.gson.Gson
 import org.json.JSONObject
+import org.json.JSONArray
 
 sealed class SpecificViewConfig {
     data class Liveboard(val cfg: LiveboardViewConfig): SpecificViewConfig()
@@ -107,15 +108,15 @@ open class BaseEmbedController(
         }
     }
 
-    open fun trigger(event: HostEvent, data: Map<String, Any>? = null) {
-        // Build the HOST_EVENT envelope
-        val payload = mutableMapOf<String, Any>(
-            "type"      to "HOST_EVENT",
+    open fun trigger(event: HostEvent, data: Any? = null) {
+        val json = gson.toJson(mapOf(
+            "type" to "HOST_EVENT",
             "eventName" to event.value,
-            // if no data, send empty object
-            "payload"   to JSONObject(data ?: emptyMap<String, Any>())
-        )
-        postToShell(payload)
+            "payload" to data
+        ))
+        webView.post {
+            webView.evaluateJavascript("window.postMessage($json, '*');", null)
+        }
     }
 
     private val TAG = "BaseEmbedController"
