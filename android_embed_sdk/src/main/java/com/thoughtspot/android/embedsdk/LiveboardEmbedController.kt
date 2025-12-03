@@ -1,9 +1,5 @@
 package com.thoughtspot.android.embedsdk
 
-import EmbedConfig
-import EmbedEvent
-import HostEvent
-import LiveboardViewConfig
 import android.content.Context
 import org.json.JSONObject
 

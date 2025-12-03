@@ -1,8 +1,5 @@
 package com.thoughtspot.android.embedsdk
 
-import EmbedConfig
-import HostEvent
-import LiveboardViewConfig
 import android.content.Context
 import android.util.Log
 import android.webkit.JavascriptInterface
@@ -130,7 +127,9 @@ open class BaseEmbedController(
         }
         postToShell(mapOf(
             "type"    to "INIT",
-            "payload" to initPayload
+            "payload" to initPayload,
+            "sdkType" to EmbedSDKInfo.SDK_TYPE,
+            "version" to EmbedSDKInfo.SDK_VERSION
         ))
 
         val viewConfigJson   = when(viewConfig) {

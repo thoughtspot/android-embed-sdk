@@ -1,5 +1,6 @@
 // Generated Kotlin code from TypeScript
 
+package com.thoughtspot.android.embedsdk
 
 /**
  * The authentication mechanism for allowing access to the

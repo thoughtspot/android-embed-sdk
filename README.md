@@ -11,7 +11,7 @@ Embed ThoughtSpot content directly into your native Android applications with ea
 Add this to your app-level `build.gradle.kts`:
 
 ```kotlin
-implementation("io.github.thoughtspot:android-embed-sdk:0.0.1-beta")
+implementation("com.thoughtspot:android-embed-sdk:1.0.0")
 ```
 
 ---
