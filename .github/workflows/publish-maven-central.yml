@@ -46,12 +46,18 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.GPG_SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ""
         run: |
-          # Decode base64 GPG key and set as env var for Gradle
-          export ORG_GRADLE_PROJECT_signingInMemoryKey=$(echo "${{ secrets.GPG_SIGNING_KEY }}" | base64 -d)
+          # Decode GPG key to file, then read it properly preserving newlines
+          echo "${{ secrets.GPG_SIGNING_KEY }}" | base64 -d > /tmp/gpg-key.asc
+          
+          # Use file content as signing key (this preserves multiline properly)
+          export ORG_GRADLE_PROJECT_signingInMemoryKey="$(cat /tmp/gpg-key.asc)"
+          
           ./gradlew :android_embed_sdk:publishAndReleaseToMavenCentral \
             -PVERSION_NAME=${{ github.event.inputs.version }} \
             --no-configuration-cache \
             --stacktrace
+          
+          rm -f /tmp/gpg-key.asc
 
   summary:
     name: Publish Summary
