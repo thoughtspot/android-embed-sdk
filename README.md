@@ -9,11 +9,14 @@ Embed ThoughtSpot content directly into your native Android applications with ea
 | Requirement | Minimum | Recommended |
 |-------------|---------|-------------|
 | **minSdk** | 21 | 24+ |
-| **compileSdk** | 33 | 34 |
-| **targetSdk** | 33 | 34 |
-| **Android Gradle Plugin** | 8.0.0 | 8.2.0+ |
-| **Gradle** | 8.0 | 8.2+ |
+| **compileSdk** | 34 | 35 |
+| **targetSdk** | 34 | 35 |
+| **Android Gradle Plugin** | 8.5.0 | 8.7.0+ |
+| **Gradle** | 8.7 | 8.9+ |
 | **Kotlin** | 1.9.0 | 1.9.24 |
+| **Java** | 17 | 21 |
+
+> **Note:** As of August 2025, Google Play requires targetSdk 35 for app updates. The minimums above are verified working; recommended versions align with Play Store policies.
 
 ---
 
