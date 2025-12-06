@@ -4,14 +4,44 @@ Embed ThoughtSpot content directly into your native Android applications with ea
 
 ---
 
+## 📋 Requirements
+
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| **minSdk** | 21 | 24+ |
+| **compileSdk** | 33 | 34 |
+| **targetSdk** | 33 | 34 |
+| **Android Gradle Plugin** | 8.0.0 | 8.2.0+ |
+| **Gradle** | 8.0 | 8.2+ |
+| **Kotlin** | 1.9.0 | 1.9.24 |
+
+---
+
 ## 📦 Installation
 
-### Gradle (after publication to Maven Central)
+### Gradle (Maven Central)
 
-Add this to your app-level `build.gradle.kts`:
+**1. Ensure Maven Central is in your `settings.gradle.kts`:**
 
 ```kotlin
-implementation("com.thoughtspot:android-embed-sdk:1.0.0")
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+```
+
+**2. Add the dependency in your app's `build.gradle.kts`:**
+
+```kotlin
+implementation("com.thoughtspot:android-embed-sdk:1.1.0")
+```
+
+**3. Add Internet permission in your `AndroidManifest.xml`:**
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
 ```
 
 ---
